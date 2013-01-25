@@ -40,10 +40,22 @@ VMware Tools running version:
 VMware Tools installer version:
 
     $ mco vmware installer_version
+ 
+     * [ ============================================================> ] 1 / 1
+ 
+    host.atsome.domain                       8.6.10 build-913593
+ 
+    Summary of Installer version:
+ 
+       8.6.10 build-913593 = 1
+ 
+
+    Finished processing 1 / 1 hosts in 184.41 ms
 
 ### Install/update VMware Tools
 
 To install/update the VMware Tools from the available installer_version:
 
     $ mco vmware install
+
 
