@@ -2,8 +2,8 @@ metadata :name        => "VMware Tools Agent",
          :description => "Manage VMware Tools on your VMware guest",
          :author      => "S. Heijmans",
          :license     => "ASL2",
-         :version     => "0.1",
-         :url         => "https://github.com/sheijmans/vmware",
+         :version     => "0.1.0",
+         :url         => "https://github.com/sheijmans/mcollective-vmware_tools-agents",
          :timeout     => 300
 
 requires :mcollective => "2.2.1"
