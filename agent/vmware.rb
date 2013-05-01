@@ -35,6 +35,30 @@ module MCollective
       end
 
 
+      action "check" do
+        reply.fail! "Cannot find /tb/jobs/system/vmware_tools_distribution_upgrade.sh" unless File.exist?("/tb/jobs/system/vmware_tools_distribution_upgrade.sh")
+
+        reply[:exitcode] = run("/tb/jobs/system/vmware_tools_distribution_upgrade.sh check", :stdout => :output, :chomp => true)
+
+        reply.fail! "VMware Tools check failed, exit code was #{reply[:exitcode]}" unless reply[:exitcode] == 0
+      end
+
+      action "update" do
+        reply.fail! "Cannot find /tb/jobs/system/vmware_tools_distribution_upgrade.sh" unless File.exist?("/tb/jobs/system/vmware_tools_distribution_upgrade.sh")
+
+        reply[:exitcode] = run("/tb/jobs/system/vmware_tools_distribution_upgrade.sh update", :stdout => :output, :chomp => true)
+
+        reply.fail! "VMware Tools update failed, exit code was #{reply[:exitcode]}" unless reply[:exitcode] == 0
+      end
+
+      action "uptime" do
+        reply.fail! "Cannot find /usr/bin/uptime" unless File.exist?("/usr/bin/uptime")
+
+        reply[:exitcode] = run("/usr/bin/uptime | /bin/cut -d ',' -f1", :stdout => :output, :chomp => true)
+
+        reply.fail! "uptime failed, exit code was #{reply[:exitcode]}" unless reply[:exitcode] == 0
+      end
+
       action "install" do
         reply.fail! "Cannot find /tb/jobs/system/vmware_tools_distribution_upgrade.sh" unless File.exist?("/tb/jobs/system/vmware_tools_distribution_upgrade.sh")
 

@@ -9,9 +9,12 @@ The ACTION can be one of the following:
     version               - report current version of VMware Tools
     version_installer     - report version of VMware Tools installer
     version_old_installer - report version of old VMware Tools installer
+    check                 - check if new VMware Tools installer is needed from deployment server
+    update                - update VMware Tools installer from deployment server
     install               - installs the new VMware Tools
     remove_old_installer  - removes the old VMware Tools installer from the system
     timesync_status       - displays timesync status of VMware Tools
+    uptime                - display the uptime of the server
 
     stat                  - print useful guest and host information
     stat options:
@@ -33,8 +36,8 @@ The ACTION can be one of the following:
       else
         action  = ARGV.shift
 
-        unless action.match(/^(version|version_installer|version_old_installer|install|remove_old_installer|timesync_status|stat)$/)
-          raise "Action can only be version,version_installer,version_old_installer, remove_old_installer,install,timesync_status or stat" 
+        unless action.match(/^(version|version_installer|version_old_installer|check|update|install|remove_old_installer|timesync_status|stat|uptime)$/)
+          raise "Action can only be version,version_installer,version_old_installer, remove_old_installer,check,update,install,timesync_status,uptime or stat" 
         end
 
         configuration[:action]  = action
@@ -108,6 +111,29 @@ The ACTION can be one of the following:
 
           when /^stat$/
             printf("%-40s %-10s: %s\n", sender, stat_option, data[:output])
+
+          when /^uptime$/
+            printf("%-40s uptime: %s\n", sender, data[:output])
+
+          when /^check$/
+	    result = "FAILED"
+            output = data[:output]
+	    if output.match(/VMware version: .*, update needed to .*/m)
+                result="NEEED TO DOWNLOAD UPDATE"
+            else
+	      if output.match(/VMware version: .* is already active, update not needed/m)
+                result="VERSION IS OK"
+              end
+            end
+            printf("%-40s Check result: %s\n", sender, result)
+
+          when /^update$/
+	    result = "FAILED"
+            output = data[:output]
+	    if output.match(/VMware version: .* is already active, update not needed/m)
+              result="VERSION IS OK"
+            end
+            printf("%-40s Update result: %s\n", sender, result)
 
           when /^install$/
 	    result = "FAILED"

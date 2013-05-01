@@ -2,8 +2,8 @@ metadata :name        => "VMware Tools Agent",
          :description => "Manage VMware Tools on your VMware guest",
          :author      => "S. Heijmans",
          :license     => "ASL2",
-         :version     => "1.1.2",
-         :url         => "https://github.com/sheijmans/vmware",
+         :version     => "1.1.5",
+         :url         => "https://github.com/sheijmans/mcollective-vmware_tools-agent",
          :timeout     => 360
 
 requires :mcollective => "2.2.0"
@@ -48,6 +48,42 @@ action "version_old_installer", :description => "Display version of old VMware T
             aggregate summary(:version)
         end
     end
+end
+
+action "check", :description => "Check VMware Tools installer version from the deployment server" do
+    display :always
+
+    output :output,
+           :description => "Output from the VMware Tools check",
+           :display_as  => "Installer ouput"
+
+    output :exitcode,
+           :description => "The exitcode from the VMware Tools check",
+           :display_as => "Exit Code"
+end
+
+action "update", :description => "Update VMware Tools installer version from the deployment server" do
+    display :always
+
+    output :output,
+           :description => "Output from the VMware Tools update",
+           :display_as  => "Installer ouput"
+
+    output :exitcode,
+           :description => "The exitcode from the VMware Tools update",
+           :display_as => "Exit Code"
+end
+
+action "uptime", :description => "Display uptime of the server" do
+    display :always
+
+    output :output,
+           :description => "Output from the uptime command",
+           :display_as  => "uptime ouput"
+
+    output :exitcode,
+           :description => "The exitcode from the uptime command",
+           :display_as => "Exit Code"
 end
 
 action "install", :description => "Install VMware Tools from the installer directory" do
