@@ -10,6 +10,7 @@ To use this agent you need:
 
 # TODO
 
+  * describe new options in README.md
   * ???
 
 ## Agent Installation
